@@ -111,6 +111,7 @@ import java.util.regex.PatternSyntaxException;
 public final class String
     implements java.io.Serializable, Comparable<String>, CharSequence {
     /** The value is used for character storage. */
+	//数组定义为常亮，不可修改，用于初始化
     private final char value[];
 
     /** Cache the hash code for the string */
@@ -134,6 +135,7 @@ public final class String
      * an empty character sequence.  Note that use of this constructor is
      * unnecessary since Strings are immutable.
      */
+    //字符串初始化
     public String() {
         this.value = "".value;
     }
@@ -148,6 +150,7 @@ public final class String
      * @param  original
      *         A {@code String}
      */
+    //实例化字符串（传入字符串）
     public String(String original) {
         this.value = original.value;
         this.hash = original.hash;
@@ -162,6 +165,7 @@ public final class String
      * @param  value
      *         The initial value of the string
      */
+    //字符数组的实例化构造方法（传入字符数组）
     public String(char value[]) {
         this.value = Arrays.copyOf(value, value.length);
     }
@@ -653,6 +657,7 @@ public final class String
      *             argument is negative or not less than the length of this
      *             string.
      */
+    //
     public char charAt(int index) {
         if ((index < 0) || (index >= value.length)) {
             throw new StringIndexOutOfBoundsException(index);
@@ -973,10 +978,12 @@ public final class String
      * @see  #compareTo(String)
      * @see  #equalsIgnoreCase(String)
      */
+    //判断两个字符串是否相等
     public boolean equals(Object anObject) {
         if (this == anObject) {
             return true;
         }
+        //判断是不是String类型
         if (anObject instanceof String) {
             String anotherString = (String)anObject;
             int n = value.length;
@@ -1462,6 +1469,7 @@ public final class String
      *
      * @return  a hash code value for this object.
      */
+   //重写equals时需要重写hashCode方法
     public int hashCode() {
         int h = hash;
         if (h == 0 && value.length > 0) {
