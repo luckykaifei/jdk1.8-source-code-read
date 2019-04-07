@@ -79,7 +79,14 @@ import java.util.function.Consumer;
  * @since 1.2
  * @param <E> the type of elements held in this collection
  */
-
+/**
+ *  LinkedList 是一个继承于AbstractSequentialList的双向链表。它也可以被当作堆栈、队列或双端队列进行操作。
+	LinkedList 实现 List 接口，能对它进行队列操作。
+	LinkedList 实现 Deque 接口，即能将LinkedList当作双端队列使用。
+	LinkedList 实现了Cloneable接口，即覆盖了函数clone()，能克隆。
+	LinkedList 实现java.io.Serializable接口，这意味着LinkedList支持序列化，能通过序列化去传输。
+	LinkedList 是非同步的。
+ */
 public class LinkedList<E>
     extends AbstractSequentialList<E>
     implements List<E>, Deque<E>, Cloneable, java.io.Serializable
@@ -91,6 +98,7 @@ public class LinkedList<E>
      * Invariant: (first == null && last == null) ||
      *            (first.prev == null && first.item != null)
      */
+    //指向首结点
     transient Node<E> first;
 
     /**
@@ -98,6 +106,7 @@ public class LinkedList<E>
      * Invariant: (first == null && last == null) ||
      *            (last.next == null && last.item != null)
      */
+    //指向尾节点
     transient Node<E> last;
 
     /**
@@ -114,6 +123,7 @@ public class LinkedList<E>
      * @param  c the collection whose elements are to be placed into this list
      * @throws NullPointerException if the specified collection is null
      */
+    //有参构造传入集合，调用addAll方法
     public LinkedList(Collection<? extends E> c) {
         this();
         addAll(c);
@@ -383,6 +393,7 @@ public class LinkedList<E>
      * @return {@code true} if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
      */
+    //继续调用addAll(int size,Collection<? extends E> c),默认size为0
     public boolean addAll(Collection<? extends E> c) {
         return addAll(size, c);
     }
@@ -402,20 +413,23 @@ public class LinkedList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws NullPointerException if the specified collection is null
      */
+    //从指定的位置index开始，将集合c中的元素插入到列表中
     public boolean addAll(int index, Collection<? extends E> c) {
+    	//首先判断插入位置的合法性
         checkPositionIndex(index);
-
+        //转成字符数组
         Object[] a = c.toArray();
+        
         int numNew = a.length;
         if (numNew == 0)
             return false;
 
         Node<E> pred, succ;
-        if (index == size) {
+        if (index == size) {  //在链表尾部插入数据
             succ = null;
             pred = last;
         } else {
-            succ = node(index);
+            succ = node(index); //找到index的所在节点
             pred = succ.prev;
         }
 
