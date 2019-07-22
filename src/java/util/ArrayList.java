@@ -197,6 +197,7 @@ public class ArrayList<E> extends AbstractList<E>
      * list's current size.  An application can use this operation to minimize
      * the storage of an <tt>ArrayList</tt> instance.
      */
+	 //此方法将elementData的数组设置为Arraylist的实际容量，动态增长的多余容量被删除
     public void trimToSize() {
         modCount++;
         if (size < elementData.length) {
